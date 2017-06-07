@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import UIKit
 
 class StudentController {
     
     static let baseURL = URL(string: "https://studentputapi-3a581.firebaseio.com/students")
+    
+    static var students: [Student] = []
     
     static func putStudentWith(name: String, completion: @escaping (_ success: Bool) -> Void) {
         
@@ -21,7 +22,7 @@ class StudentController {
         let student = Student(name: name)
         
         guard let baseURL = baseURL else { return }
-        let newEndPoint = baseURL.appendingPathComponent(UUID().uuidString)
+        let newEndPoint = baseURL.appendingPathComponent(UUID().uuidString).appendingPathExtension("json")
         
         NetworkController.performRequest(for: newEndPoint, httpMethod: .put, urlParameters: nil, body: student.jsonData) { (data, error) in
             
@@ -37,11 +38,10 @@ class StudentController {
                 print("Successfully put student \(student.name) at endpoint. \n\(responseDataString))")
             }
             
+            success = true
+            
+            self.students.append(student)
             
         }
-        
-        
-        
     }
-    
 }
