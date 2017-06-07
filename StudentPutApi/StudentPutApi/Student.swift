@@ -35,4 +35,9 @@ class Student {
         return [nameKey: name]
     }
     
+    var jsonData: Data? {
+        return (try? JSONSerialization.data(withJSONObject: dictionaryReperesentation, options: .prettyPrinted))
+    }
+    
+    
 }
