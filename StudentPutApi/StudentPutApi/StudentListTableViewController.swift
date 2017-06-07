@@ -35,6 +35,14 @@ class StudentListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        StudentController.fetchAllStudents {
+            NSLog("Finished fetchig all students")
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }
     }
 
     // MARK: - Table view data source

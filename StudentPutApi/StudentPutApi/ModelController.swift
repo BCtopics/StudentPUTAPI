@@ -67,12 +67,7 @@ class StudentController {
             self.students = students
             
         }
-        
     }
-    
-    
-    
-    
 }
 
 
