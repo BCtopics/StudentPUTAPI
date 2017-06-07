@@ -44,4 +44,40 @@ class StudentController {
             
         }
     }
+    
+    
+    static func fetchAllStudents(completion: @escaping () -> Void) {
+        
+        
+        guard let baseURL = baseURL?.appendingPathExtension("json") else { return }
+        
+        NetworkController.performRequest(for: baseURL, httpMethod: .get, urlParameters: nil, body: nil) { (data, error) in
+            
+            defer { completion() }
+            
+            if let error = error { NSLog("Error performing network request. \(error.localizedDescription)"); return }
+            
+            guard let data = data else { NSLog("Invalid Data"); return }
+            guard let responseDataString = String(data: data, encoding: .utf8) else { return }
+            
+            guard let resultsDictionary = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: [String: Any]] else { NSLog("Could not serialize data from JSON"); return }
+
+            
+        }
+        
+    }
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
