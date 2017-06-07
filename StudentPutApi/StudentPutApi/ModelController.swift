@@ -61,7 +61,10 @@ class StudentController {
             guard let responseDataString = String(data: data, encoding: .utf8) else { return }
             
             guard let resultsDictionary = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: [String: Any]] else { NSLog("Could not serialize data from JSON"); return }
-
+            
+            let students = resultsDictionary.flatMap { Student(dictionary: $0.value) }
+        
+            self.students = students
             
         }
         
